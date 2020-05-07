@@ -1,13 +1,79 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Noto+Sans:400,700&display=swap&subset=cyrillic-ext"
+      rel="stylesheet"
+    />
     <title>Trello</title>
-</head>
-<body>
-    
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="columns">
+          <div class="column" draggable="true" data-column-id="1">
+            <p class="column-header" contenteditable="true">To do</p>
+            <div data-notes>
+              <div class="note" draggable="true" data-note-id="1">
+                Lorem ipsum dolor sit amet consectetur.
+              </div>
+              <div class="note" draggable="true" data-note-id="2">
+                Lorem ipsum dolor sit amet, consectetur adipisicing.
+              </div>
+              <div class="note" draggable="true" data-note-id="3">
+                Lorem, ipsum dolor.
+              </div>
+            </div>
+            <p class="column-footer">
+              <span data-action-addNote class="action"
+                >+ Добавити картку</span
+              >
+            </p>
+          </div>
+
+          <div class="column" draggable="true" data-column-id="2">
+            <p class="column-header" contenteditable="true">In progress</p>
+            <div data-notes>
+              <div class="note" draggable="true" data-note-id="4">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+              </div>
+              <div class="note" draggable="true" data-note-id="5">
+                Lorem ipsum dolor sit amet consectetur.
+              </div>
+              <div class="note" draggable="true" data-note-id="6">
+                Lorem ipsum dolor sit.
+              </div>
+              <div class="note" draggable="true" data-note-id="7">
+                Lorem, ipsum dolor.
+              </div>
+            </div>
+            <p class="column-footer">
+              <span data-action-addNote class="action"
+                >+ Добавити картку</span
+              >
+            </p>
+          </div>
+
+          <div class="column" draggable="true" data-column-id="3">
+            <p class="column-header" contenteditable="true">Done</p>
+            <div data-notes></div>
+            <p class="column-footer">
+              <span data-action-addNote class="action"
+                >+ Добавити картку</span
+              >
+            </p>
+          </div>
+        </div>
+
+        <div class="adder">
+          <span data-action-addColumn class="action">+ Добавити колонку</span>
+        </div>
+      </div>
+    </div>
+
     <script src="main.js"></script>
-</body>
+  </body>
 </html>
