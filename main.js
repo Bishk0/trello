@@ -37,6 +37,9 @@ function columnProcess(columnElement) {
     noteIdCounter++;
     columnElement.querySelector("[data-notes]").append(noteElement);
     noteProcess(noteElement);
+
+    noteElement.setAttribute("contenteditable", true);
+    noteElement.focus();
   });
 
   const headerElement = columnElement.querySelector(".column-header");
@@ -48,25 +51,31 @@ function columnProcess(columnElement) {
   headerElement.addEventListener("blur", function (event) {
     headerElement.removeAttribute("contenteditable");
   });
-columnElement.addEventListener("dragover", function (event) {
+  columnElement.addEventListener("dragover", function (event) {
     event.preventDefault();
-})
+  });
   columnElement.addEventListener("drop", function (event) {
     if (draggedNote) {
-        return columnElement.querySelector("[data-notes]").append(draggedNote);
+      return columnElement.querySelector("[data-notes]").append(draggedNote);
     }
   });
-
 }
 
 function noteProcess(noteElement) {
   // allow edit card
   noteElement.addEventListener("dblclick", function (event) {
     noteElement.setAttribute("contenteditable", true);
+    noteElement.removeAttribute("draggable");
+    noteElement.closest(".column").removeAttribute("draggable");
     noteElement.focus();
   });
   noteElement.addEventListener("blur", function (event) {
     noteElement.removeAttribute("contenteditable");
+    noteElement.setAttribute("draggable", true);
+    noteElement.closest(".column").setAttribute("draggable", true);
+    if (!noteElement.textContent.trim().length) {
+      noteElement.remove();
+    }
   });
 
   //------drag-and-drop-----
@@ -116,7 +125,7 @@ function dragleave_noteHandler(event) {
   //   console.log("dragleave", event, this);
 }
 function drop_noteHandler(event) {
-    event.stopPropagation();
+  event.stopPropagation();
   if (this === draggedNote) {
     return;
   }
@@ -126,12 +135,11 @@ function drop_noteHandler(event) {
     const indexA = note.indexOf(this);
     const indexB = note.indexOf(draggedNote);
     if (indexA < indexB) {
-        this.parentElement.insertBefore(draggedNote, this);
+      this.parentElement.insertBefore(draggedNote, this);
     } else {
-        this.parentElement.insertBefore(draggedNote, this.nextElementSibling);
+      this.parentElement.insertBefore(draggedNote, this.nextElementSibling);
     }
   } else {
     this.parentElement.insertBefore(draggedNote, this);
   }
-
 }
