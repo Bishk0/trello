@@ -8,7 +8,7 @@ document
   .addEventListener("click", function (event) { // create new columns
     const columnElement = document.createElement("div");
     columnElement.classList.add("column");
-    columnElement.setAttribute("draggable", "true");
+    columnElement.setAttribute("draggable", true);
     columnElement.setAttribute("data-note-id", columnIdCounter);
     columnElement.innerHTML = `
      <p class="column-header">New column</p>
@@ -29,17 +29,28 @@ function columnProcess(columnElement) { // create new cards
   spanAction_addNote.addEventListener("click", function (event) {
     const noteElement = document.createElement("div");
     noteElement.classList.add("note");
-    noteElement.setAttribute("draggable", "true");
+    noteElement.setAttribute("draggable", true);
     noteElement.setAttribute("data-note-id", noteIdCounter);
     noteIdCounter++;
     columnElement.querySelector("[data-notes]").append(noteElement);
     noteProcess(noteElement);
   });
+
+  const headerElement = columnElement.querySelector(".column-header");
+headerElement.addEventListener("dblclick", function (event) {
+    headerElement.setAttribute("contenteditable", true);
+    headerElement.focus();
+});
+
+headerElement.addEventListener("blur", function (event) {
+    headerElement.removeAttribute("contenteditable");
+});
+
 }
 
 function noteProcess(noteElement) { // allow edit card
   noteElement.addEventListener("dblclick", function (event) {
-    noteElement.setAttribute("contenteditable", "true");
+    noteElement.setAttribute("contenteditable", true);
     noteElement.focus();
   });
   noteElement.addEventListener("blur", function (event) {
