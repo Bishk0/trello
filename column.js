@@ -1,5 +1,5 @@
 const Column = {
-  idCounter: 4,
+  idCounter: 1,
   dragged: null,
   dropped: null,
 
@@ -20,12 +20,16 @@ const Column = {
     const headerElement = columnElement.querySelector(".column-header");
 
     headerElement.addEventListener("dblclick", function (event) {
+      columnElement.removeAttribute("draggable");
       headerElement.setAttribute("contenteditable", true);
       headerElement.focus();
     });
 
     headerElement.addEventListener("blur", function (event) {
+      columnElement.setAttribute("draggable", "true");
       headerElement.removeAttribute("contenteditable", true);
+
+      Application.save();
     });
 
     columnElement.addEventListener("dragstart", Column.dragstart);
@@ -39,6 +43,29 @@ const Column = {
     columnElement.addEventListener("dragover", Column.dragover);
 
     columnElement.addEventListener("drop", Column.drop);
+  },
+
+  create(id = null) {
+    const columnElement = document.createElement("div");
+    columnElement.classList.add("column");
+    columnElement.setAttribute("draggable", "true");
+
+    if (id) {
+      columnElement.setAttribute("data-column-id", id);
+    } else {
+      columnElement.setAttribute("data-column-id", Column.idCounter);
+    }
+    Column.idCounter++;
+
+    columnElement.innerHTML = `<p class="column-header">New column</p>
+      <div data-notes></div>
+      <p class="column-footer">
+	    <span data-action-addNote class="action">+ Добавити картку</span>
+      </p>`;
+
+    Column.process(columnElement);
+
+    return columnElement;
   },
 
   dragstart(event) {
@@ -56,6 +83,8 @@ const Column = {
     Column.dragged.classList.remove("dragged");
     Column.dragged = null;
     Column.dropped = null;
+
+    Application.save();
 
     // document
     //   .querySelectorAll(".note")
