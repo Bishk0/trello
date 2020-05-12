@@ -29,6 +29,10 @@ const Column = {
       columnElement.setAttribute("draggable", "true");
       headerElement.removeAttribute("contenteditable", true);
 
+      if (!headerElement.textContent.trim().length) {
+        columnElement.remove();
+      }
+
       Application.save();
     });
 
@@ -57,7 +61,7 @@ const Column = {
     }
     Column.idCounter++;
 
-    columnElement.innerHTML = `<p class="column-header">New column</p>
+    columnElement.innerHTML = `<p class="column-header"></p>
       <div data-notes></div>
       <p class="column-footer">
 	    <span data-action-addNote class="action">+ Добавити картку</span>

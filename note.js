@@ -40,7 +40,6 @@ const Note = {
       noteElement.setAttribute("data-note-id", id);
     } else {
       noteElement.setAttribute("data-note-id", Note.idCounter);
-      
     }
     Note.idCounter++;
 
